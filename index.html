@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>The Guessing Game</title> 
-        <meta name= 'Guessing Game'>
+        <meta name= 'Guessing Game' charset="UTF-8">
         <link rel='stylesheet' href='main.css'>
+          <!-- the MAIN.CSS file is linked here -->
     </head>
     <body>
-        <h1>The Guessing Game</h1>
+        <h1 id="title">The Guessing Game</h1>
 
         <div>
             <h2>Previous Guesses</h2>
             <ul>
-                <ol>Guess 1</ol>
-                <ol>Guess 2</ol>
-                <ol>Guess 3</ol>
-                <ol>Guess 3</ol>
+                <ol>5</ol>
+                <ol>45</ol>
+                <ol>67</ol>
+                <ol>22</ol>
             </ul>
         </div>
 
@@ -23,10 +24,12 @@
         <div>
             <span>
                 <input type="number" placeholder="enter your guess here">
-                <button>Submit Guess</button>
-                <button>Play Again</button>
-                <button>Hint</button>
+                <button id='submit-guess'>Submit Guess</button>
+                <button id='play-again'>Play Again</button>
+                <button id='give-hint'>Hint</button>
             </span>
         </div>
+        <script src='guessing-game.js'></script> 
+    <!-- uncomment the script tag above when you are ready to add JavaScript to your document -->
     </body>
 </html>

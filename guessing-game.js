@@ -5,6 +5,7 @@ function Game(){
     this.playerGuess = null;
     this.previousGuesses = [];
     this.winningNumber = generateWinningNumber();
+    this.playerName = null;
 }
 
 function generateWinningNumber(){
@@ -28,7 +29,7 @@ Game.prototype.guessCheck = function(){
      if(this.previousGuesses.includes(this.playerGuess)){
         return 'you\'ve already guessed that Number';
     } else if(this.playerGuess === this.winningNumber){
-        return `You win! The number was ${this.winningNumber}!!`
+        return `You win ${this.playerName}! The number was ${this.winningNumber}!!`
     } else if(this.playerGuess < this.winningNumber){
         this.previousGuesses.push(this.playerGuess)
         if(this.previousGuesses.length >= 5) {
@@ -60,6 +61,7 @@ let guess1 = document.getElementById('guess-1')
 let guess2 = document.getElementById('guess-2')
 let guess3 = document.getElementById('guess-3')
 let guess4 = document.getElementById('guess-4')
+let welcomeMsg = document.getElementById('welcome-message')
 
 function submittedGuess(inputElement){
     const numGuess = Number(inputElement.value); //coercion to change String value to Number
@@ -120,5 +122,7 @@ hintButton.addEventListener('click', function(){
 
 window.addEventListener('DOMContentLoaded', (event) => {
     startGame = newGame();
+    startGame.playerName = prompt("what is your name?", "Player 1")
+    welcomeMsg.innerHTML += ` ${startGame.playerName}`
 });
 

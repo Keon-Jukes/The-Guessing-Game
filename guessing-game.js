@@ -1,11 +1,12 @@
 
 let startGame;
+let tempName;
 //Constructor function which can be invoked with 'new' keyword to continously create new games
 function Game(){
     this.playerGuess = null;
     this.previousGuesses = [];
     this.winningNumber = generateWinningNumber();
-    this.playerName = null;
+    this.playerName = 'Player 1';
 }
 
 function generateWinningNumber(){
@@ -48,6 +49,12 @@ Game.prototype.guessCheck = function(){
 Game.prototype.giveHint = function(){
     let lowerNum = this.winningNumber - 10;
     let higherNum = this.winningNumber + 10;
+    if(lowerNum < 0){
+        lowerNum = 0;
+    }
+    if(higherNum > 100){
+        higherNum = 100;
+    }
     return `the secret number is in the range of ${lowerNum} and ${higherNum}`
 }
 
@@ -74,6 +81,7 @@ function submittedGuess(inputElement){
         guess3.innerHTML = "";
         guess4.innerHTML = "";
         startGame = newGame();
+        location.reload();
     }else if(startGame.previousGuesses.length === 1){
         guess1.innerHTML = numGuess;
     } else if(startGame.previousGuesses.length === 2) {
@@ -89,6 +97,7 @@ function submittedGuess(inputElement){
         guess3.innerHTML = "";
         guess4.innerHTML = "";
         startGame = newGame();
+        location.reload();
     }
     inputElement.value = '';
 }
@@ -123,6 +132,7 @@ hintButton.addEventListener('click', function(){
 window.addEventListener('DOMContentLoaded', (event) => {
     startGame = newGame();
     startGame.playerName = prompt("what is your name?", "Player 1")
+    tempName = startGame.playerName;
     welcomeMsg.innerHTML += ` ${startGame.playerName}`
 });
 

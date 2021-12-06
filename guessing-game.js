@@ -25,27 +25,29 @@ Game.prototype.playerGuessSubmission = function(guess){
 }
 
 Game.prototype.guessCheck = function(){
-    if(this.previousGuesses.includes(this.playerGuess)){
+     if(this.previousGuesses.includes(this.playerGuess)){
         return 'you\'ve already guessed that Number';
-    }
-    if(this.playerGuess === this.winningNumber){
-        return `You win! The number was ${this.winningNumber}`
+    } else if(this.playerGuess === this.winningNumber){
+        return `You win! The number was ${this.winningNumber}!!`
     } else if(this.playerGuess < this.winningNumber){
+        this.previousGuesses.push(this.playerGuess)
         if(this.previousGuesses.length >= 5) {
-            return 'you lose';
-        } else{
-            this.previousGuesses.push(this.playerGuess)
+            return 'oh no, that was all your five guesses';
+        }
         return 'Guess higher'
-        }
     } else if(this.playerGuess > this.winningNumber){
+        this.previousGuesses.push(this.playerGuess)
         if(this.previousGuesses.length >= 5) {
-            return 'you lose';
-        } else {
-            this.previousGuesses.push(this.playerGuess)
-            return 'Guess lower';
+            return 'oh no, that was all your five guesses';
         }
-       
+         return 'Guess lower';
     }
+}
+
+Game.prototype.giveHint = function(){
+    let lowerNum = this.winningNumber - 10;
+    let higherNum = this.winningNumber + 10;
+    return `the secret number is in the range of ${lowerNum} and ${higherNum}`
 }
 
 
@@ -64,7 +66,13 @@ function submittedGuess(inputElement){
     alert(startGame.playerGuessSubmission(numGuess));
     if(isNaN(numGuess) || numGuess < 1 || numGuess > 100){
         console.log('invalid number, try again')
-    } else if(startGame.previousGuesses.length === 1){
+    } else if(numGuess === startGame.winningNumber){
+        guess1.innerHTML = "";
+        guess2.innerHTML = "";
+        guess3.innerHTML = "";
+        guess4.innerHTML = "";
+        startGame = newGame();
+    }else if(startGame.previousGuesses.length === 1){
         guess1.innerHTML = numGuess;
     } else if(startGame.previousGuesses.length === 2) {
         guess2.innerHTML = numGuess;
@@ -73,7 +81,7 @@ function submittedGuess(inputElement){
     } else if(startGame.previousGuesses.length === 4) {
         guess4.innerHTML = numGuess;
     } else{
-        alert('you have lost this game')
+        alert(`you have lost this game, the secret number was ${startGame.winningNumber}`)
         guess1.innerHTML = "";
         guess2.innerHTML = "";
         guess3.innerHTML = "";
@@ -106,7 +114,7 @@ playAgainButton.addEventListener('click', function(){
 
 
 hintButton.addEventListener('click', function(){
-    alert('you\'re very close');
+    alert(startGame.giveHint());
 });
 
 

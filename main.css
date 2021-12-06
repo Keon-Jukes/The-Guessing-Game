@@ -1,0 +1,10 @@
+#title {
+  background-color: blue;
+  color: white;
+}
+
+#main-body {
+  border: dotted rgb(211, 211, 28) 5px;
+  width: 250px;
+  padding: 2%;
+}
